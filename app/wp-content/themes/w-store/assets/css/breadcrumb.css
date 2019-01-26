@@ -1,0 +1,15 @@
+.woocommerce-breadcrumb a:first-of-type::before {
+  content: '';
+  display: none;
+}
+
+
+.storefront-breadcrumb {
+  margin-bottom: 32px;
+  padding-top: 0;
+}
+
+.woocommerce-breadcrumb {
+  font-weight: 300;
+  font-size: 16px;
+}

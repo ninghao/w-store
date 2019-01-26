@@ -1,0 +1,121 @@
+.site-header-cart .widget_shopping_cart {
+  background-color: #fff;
+}
+
+.site-header-cart.focus .widget_shopping_cart, 
+.site-header-cart:hover .widget_shopping_cart {
+  border: 1px solid #eee;
+}
+
+.site-header-cart .widget_shopping_cart .buttons, 
+.site-header-cart .widget_shopping_cart .total {
+  background-color: #fff;
+}
+
+.site-header-cart .widget_shopping_cart .buttons, 
+.site-header-cart .widget_shopping_cart .total {
+  background-color: #fff;
+}
+
+table th {
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+table tbody td {
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+table.cart td.actions {
+  border-bottom: none;
+}
+
+table.cart td.product-remove {
+  border: none;
+}
+
+.shop_table {
+  position: relative;
+}
+
+table.cart tr:first-child td.product-remove a {
+  position: absolute;
+  right: 20px;
+  top: 48px;
+}
+
+@media (min-width: 768px) {
+  table.cart td.product-remove {
+    border-bottom: 1px solid #eee;
+  }
+
+  table.cart tr:first-child td.product-remove a {
+    position: relative;
+    top: 20px;
+    right: 0;
+  }
+
+  table td, table th {
+    border-bottom: 1px solid #eee;
+    background: #fff;
+  }
+
+  table.cart tr:first-child td.product-remove {
+    width: 50px; 
+  }
+}
+
+table tbody tr:nth-child(2n) td, 
+fieldset, 
+fieldset legend {
+  background-color: #fff;
+}
+
+a.remove::before {
+  color: #000;
+}
+
+table.cart td, 
+table.cart th {
+  padding: 16px;
+}
+
+.woocommerce-order-details__title {
+  margin-bottom: 40px;
+}
+
+.woocommerce-column__title {
+  margin-bottom: 40px;
+}
+
+.woocommerce-order-details {
+  margin-bottom: 48px;
+}
+
+.woocommerce-cart-form__cart-item .product-name {
+  font-weight: bold;
+}
+
+table.cart .product-thumbnail img {
+  max-width: 90px;
+  margin: 0;
+}
+
+.cart-subtotal .woocommerce-Price-amount {
+  font-weight: bold;
+}
+
+.site-header .widget_shopping_cart p.total {
+  text-align: right;
+  font-size: 14px;
+}
+
+.site-header .widget_shopping_cart p.total strong {
+  padding-right: 4px;
+}
+
+.site-header .widget_shopping_cart li, 
+.site-header .widget_shopping_cart p.buttons {
+  font-size: 14px;
+}

@@ -1,0 +1,6 @@
+.widget .widget-title, 
+.widget .widgettitle {
+  font-weight: 600;
+  font-size: 18px;
+  text-transform: uppercase;
+}
