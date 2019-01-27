@@ -28,6 +28,9 @@ class WC_Gateway_Alipay extends WC_Payment_Gateway {
 
     $logger = wc_get_logger();
     $logger->log( 'info', 'hello', array( 'source' => 'alipay' ));
+    $logger->info( 'hello', array( 'source' => 'alipay' ));
+    $logger->log( 'error', 'bad gateway', array( 'source' => 'alipay' ));
+    $logger->debug( wc_print_r( $this, true ), array( 'source' => 'alipay' ));
   }
 
   public function init_form_fields() {
