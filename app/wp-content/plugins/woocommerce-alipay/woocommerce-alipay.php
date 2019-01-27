@@ -13,6 +13,7 @@ if( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'WC_ALIPAY', plugin_dir_path( __FILE__ ) );
+define( 'WC_LOG_HANDLER', 'WC_Log_Handler_DB' );
 
 add_action( 'plugins_loaded', 'woocommerce_alipay_init' );
 
