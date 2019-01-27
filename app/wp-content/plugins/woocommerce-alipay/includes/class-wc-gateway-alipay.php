@@ -14,5 +14,11 @@ class WC_Gateway_Alipay extends WC_Payment_Gateway {
     $this->supports           = array(
       'products'
     );
+
+    $this->init_form_fields();
+  }
+
+  public function init_form_fields() {
+    $this->form_fields = include WC_ALIPAY . 'includes/settings-alipay.php';
   }
 }
