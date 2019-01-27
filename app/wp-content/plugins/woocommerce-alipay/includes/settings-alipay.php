@@ -11,7 +11,14 @@ return array(
     'label'       => '允许使用支付宝支付',
     'description' => '设置是否允许使用支付宝支付方法进行支付。',
     'default'     => 'no',
-  ),
+	),
+	'debug' => array(
+		'title'       => __( 'Debug', 'woocommerce' ),
+		'type'        => 'checkbox',
+		'label'       => __( 'Enable logging', 'woocommerce' ),
+		'default'     => 'no',
+		'description' => '记录使用支付宝支付时的调试日志。',
+	),
   'title' => array(
 		'title'       => __( 'Title', 'woocommerce' ),
 		'type'        => 'text',
