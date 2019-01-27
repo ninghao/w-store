@@ -10,7 +10,7 @@ return array(
     'type'        => 'checkbox',
     'label'       => '允许使用支付宝支付',
     'description' => '设置是否允许使用支付宝支付方法进行支付。',
-    'default'     => 'yes',
+    'default'     => 'no',
   ),
   'title' => array(
 		'title'       => __( 'Title', 'woocommerce' ),
