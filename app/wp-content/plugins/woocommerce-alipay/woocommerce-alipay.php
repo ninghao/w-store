@@ -12,12 +12,12 @@ if( ! defined( 'ABSPATH' ) ) {
   exit;
 }
 
+define( 'WC_ALIPAY', plugin_dir_path( __FILE__ ) );
+
 add_action( 'plugins_loaded', 'woocommerce_alipay_init' );
 
 function woocommerce_alipay_init() {
-  class WC_Gateway_Alipay extends WC_Payment_Gateway {
-
-  }
+  require_once WC_ALIPAY . 'includes/class-wc-gateway-alipay.php';
 }
 
 add_filter( 'woocommerce_payment_gateways', 'woocommerce_alipay_gateway_class' );
