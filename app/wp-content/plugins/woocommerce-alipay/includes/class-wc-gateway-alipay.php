@@ -25,6 +25,9 @@ class WC_Gateway_Alipay extends WC_Payment_Gateway {
       'woocommerce_update_options_payment_gateways_' . $this->id,
       array( $this, 'process_admin_options' )
     );
+
+    $logger = wc_get_logger();
+    $logger->log( 'info', 'hello', array( 'source' => 'alipay' ));
   }
 
   public function init_form_fields() {
