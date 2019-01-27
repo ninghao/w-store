@@ -16,6 +16,9 @@ class WC_Gateway_Alipay extends WC_Payment_Gateway {
     );
 
     $this->init_form_fields();
+
+    $this->title       = $this->get_option( 'title' );
+    $this->description = $this->get_option( 'description' );
   }
 
   public function init_form_fields() {
