@@ -37,12 +37,17 @@ class WC_Gateway_Alipay extends WC_Payment_Gateway {
     // $logger->log( 'error', 'bad gateway', array( 'source' => 'alipay' ));
     // $logger->debug( wc_print_r( $this, true ), array( 'source' => 'alipay' ));
     WC_Gateway_Alipay::log( 'hello alipay' );
+    WC_Gateway_Alipay::log( $this, 'debug', true );
   }
 
-  public static function log( $message, $level = 'info' ) {
+  public static function log( $message, $level = 'info', $return = false ) {
     if ( self::$log_enabled ) {
       if ( empty( self::$log ) ) {
         self::$log = wc_get_logger();
+      }
+
+      if ( $return ) {
+        $message = wc_print_r( $message, true );
       }
 
       self::$log->log( $level, $message, array( 'source' => 'alipay' ) );
