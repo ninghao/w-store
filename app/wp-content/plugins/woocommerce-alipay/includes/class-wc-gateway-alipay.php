@@ -60,5 +60,8 @@ class WC_Gateway_Alipay extends WC_Payment_Gateway {
 
   public function process_payment( $order_id ) {
     WC_Gateway_Alipay::log( '使用支付宝支付订单：' . $order_id );
+
+    $order = wc_get_order( $order_id );
+    WC_Gateway_Alipay::log( $order, 'debug', true );
   }
 }
