@@ -67,5 +67,10 @@ class WC_Gateway_Alipay extends WC_Payment_Gateway {
 
     $order->update_status( 'on-hold', '正在使用支付宝支付。' );
     WC_Gateway_Alipay::log( $order->status );
+
+    return array(
+      'result'        => 'success',
+      'redirect'      => 'https://openapi.alipay.com/gateway.do'
+    );
   }
 }
