@@ -36,8 +36,8 @@ class WC_Gateway_Alipay extends WC_Payment_Gateway {
     // $logger->info( 'hello', array( 'source' => 'alipay' ));
     // $logger->log( 'error', 'bad gateway', array( 'source' => 'alipay' ));
     // $logger->debug( wc_print_r( $this, true ), array( 'source' => 'alipay' ));
-    WC_Gateway_Alipay::log( 'hello alipay' );
-    WC_Gateway_Alipay::log( $this, 'debug', true );
+    // WC_Gateway_Alipay::log( 'hello alipay' );
+    // WC_Gateway_Alipay::log( $this, 'debug', true );
   }
 
   public static function log( $message, $level = 'info', $return = false ) {
@@ -56,5 +56,9 @@ class WC_Gateway_Alipay extends WC_Payment_Gateway {
 
   public function init_form_fields() {
     $this->form_fields = include WC_ALIPAY . 'includes/settings-alipay.php';
+  }
+
+  public function process_payment( $order_id ) {
+    WC_Gateway_Alipay::log( '使用支付宝支付订单：' . $order_id );
   }
 }
