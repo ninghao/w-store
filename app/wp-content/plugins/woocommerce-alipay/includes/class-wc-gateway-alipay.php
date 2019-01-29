@@ -35,6 +35,10 @@ class WC_Gateway_Alipay extends WC_Payment_Gateway {
     include_once WC_ALIPAY . '/includes/alipay-sdk/AopSdk.php';
 
     $this->aop_client = new AopClient();
+
+    $this->app_id = $this->get_option( 'app_id' );
+    $this->alipay_public_key = $this->get_option( 'alipay_public_key' );
+    $this->merchant_private_key = $this->get_option( 'merchant_private_key' );
   }
 
   public static function log( $message, $level = 'info', $return = false ) {
@@ -56,6 +60,8 @@ class WC_Gateway_Alipay extends WC_Payment_Gateway {
   }
 
   public function process_payment( $order_id ) {
+    include_once WC_ALIPAY . '/includes/class-wc-gateway-alipay-request.php';
+
     WC_Gateway_Alipay::log( '使用支付宝支付订单：' . $order_id );
 
     $order = wc_get_order( $order_id );
@@ -65,9 +71,12 @@ class WC_Gateway_Alipay extends WC_Payment_Gateway {
     $order->update_status( 'on-hold', '正在使用支付宝支付。' );
     WC_Gateway_Alipay::log( $order->status );
 
+    $alipay_request = new WC_Gateway_Alipay_Request( $this );
+    $request_url = $alipay_request->get_request_url( $order );
+
     return array(
       'result'        => 'success',
-      'redirect'      => 'https://openapi.alipay.com/gateway.do'
+      'redirect'      => $request_url
     );
   }
 }
