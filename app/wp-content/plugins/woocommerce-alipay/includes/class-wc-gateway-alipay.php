@@ -38,6 +38,12 @@ class WC_Gateway_Alipay extends WC_Payment_Gateway {
     // $logger->debug( wc_print_r( $this, true ), array( 'source' => 'alipay' ));
     // WC_Gateway_Alipay::log( 'hello alipay' );
     // WC_Gateway_Alipay::log( $this, 'debug', true );
+
+    // alipay sdk
+    include_once WC_ALIPAY . '/includes/alipay-sdk/AopSdk.php';
+
+    $this->aop_client = new AopClient();
+    $this->log($this->aop_client, 'debug', true);
   }
 
   public static function log( $message, $level = 'info', $return = false ) {
