@@ -31,14 +31,6 @@ class WC_Gateway_Alipay extends WC_Payment_Gateway {
       array( $this, 'process_admin_options' )
     );
 
-    // $logger = wc_get_logger();
-    // $logger->log( 'info', 'hello', array( 'source' => 'alipay' ));
-    // $logger->info( 'hello', array( 'source' => 'alipay' ));
-    // $logger->log( 'error', 'bad gateway', array( 'source' => 'alipay' ));
-    // $logger->debug( wc_print_r( $this, true ), array( 'source' => 'alipay' ));
-    // WC_Gateway_Alipay::log( 'hello alipay' );
-    // WC_Gateway_Alipay::log( $this, 'debug', true );
-
     // alipay sdk
     include_once WC_ALIPAY . '/includes/alipay-sdk/AopSdk.php';
 
