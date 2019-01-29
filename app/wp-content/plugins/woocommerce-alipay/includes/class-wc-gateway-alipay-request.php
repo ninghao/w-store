@@ -7,6 +7,7 @@ if( ! defined( 'ABSPATH' ) ) {
 class WC_Gateway_Alipay_Request {
   public function __construct( $gateway ) {
     $this->gateway = $gateway;
+    $this->request = new AlipayTradePagePayRequest();
   }
 
   public function get_request_url( $order ) {
@@ -26,7 +27,17 @@ class WC_Gateway_Alipay_Request {
 
     WC_Gateway_Alipay::log( $biz_content, 'debug', true );
 
-    $request_url = 'https://ninghao.net';
+    $return_url = $this->gateway->get_return_url( $order );
+
+    $this->request->setReturnUrl( $return_url );
+    $this->request->setBizContent( $biz_content );
+
+    $this->gateway->aop_client->appId = $this->gateway->app_id;
+    $this->gateway->aop_client->rsaPrivateKey = $this->gateway->merchant_private_key;
+    $this->gateway->aop_client->alipayrsaPublicKey = $this->gateway->alipay_public_key;
+    $this->gateway->aop_client->signType = 'RSA2';
+
+    $request_url = $this->gateway->aop_client->pageExecute( $this->request, 'GET' );
     return $request_url;
   }
 }
