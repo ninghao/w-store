@@ -11,9 +11,9 @@ class WC_Gateway_Alipay_Request {
   }
 
   public function get_request_url( $order ) {
-    $out_trade_no = $order->get_id();
+    $out_trade_no = $this->gateway->sandbox ? '(sandbox) - ' . $order->get_id() : $order->get_id();
     $subject = get_bloginfo( 'name' ) . ': # ' . $out_trade_no;
-    $total_amount = $order->get_total();
+    $total_amount = $this->gateway->sandbox ? '0.01' : $order->get_total();
     $product_code = 'FAST_INSTANT_TRADE_PAY';
 
     $biz_content_raw = array(

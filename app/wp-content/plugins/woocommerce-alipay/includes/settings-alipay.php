@@ -19,6 +19,13 @@ return array(
 		'default'     => 'no',
 		'description' => '记录使用支付宝支付时的调试日志。',
 	),
+	'sandbox' => array(
+		'title'       => __( 'Sandbox', 'woocommerce' ),
+		'type'        => 'checkbox',
+		'label'       => __( 'Enable sandbox mode', 'woocommerce' ),
+		'default'     => 'no',
+		'description' => '启用沙箱模式时，订单金额会变成 1 分钱。',
+	),
   'title' => array(
 		'title'       => __( 'Title', 'woocommerce' ),
 		'type'        => 'text',
