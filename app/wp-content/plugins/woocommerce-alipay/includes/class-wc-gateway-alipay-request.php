@@ -7,14 +7,22 @@ if( ! defined( 'ABSPATH' ) ) {
 class WC_Gateway_Alipay_Request {
   public function __construct( $gateway ) {
     $this->gateway = $gateway;
-    $this->request = new AlipayTradePagePayRequest();
+    $this->mobile = wp_is_mobile();
+
+    if ( $this->mobile ) {
+      $this->request = new AlipayTradeWapPayRequest();
+      $this->product_code = 'QUICK_WAP_WAY';
+    } else {
+      $this->request = new AlipayTradePagePayRequest();
+      $this->product_code = 'FAST_INSTANT_TRADE_PAY';
+    }
   }
 
   public function get_request_url( $order ) {
     $out_trade_no = $this->gateway->sandbox ? '(sandbox) - ' . $order->get_id() : $order->get_id();
     $subject = get_bloginfo( 'name' ) . ': # ' . $out_trade_no;
     $total_amount = $this->gateway->sandbox ? '0.01' : $order->get_total();
-    $product_code = 'FAST_INSTANT_TRADE_PAY';
+    $product_code = $this->product_code;
 
     $biz_content_raw = array(
       'out_trade_no' => $out_trade_no,
