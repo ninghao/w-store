@@ -28,8 +28,10 @@ class WC_Gateway_Alipay_Request {
     WC_Gateway_Alipay::log( $biz_content, 'debug', true );
 
     $return_url = $this->gateway->get_return_url( $order );
+    $notify_url = rest_url( 'alipay/v1/notify' );
 
     $this->request->setReturnUrl( $return_url );
+    $this->request->setNotifyUrl( $notify_url );
     $this->request->setBizContent( $biz_content );
 
     $this->gateway->aop_client->appId = $this->gateway->app_id;
