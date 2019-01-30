@@ -27,3 +27,12 @@ function woocommerce_alipay_gateway_class( $methods ) {
   $methods[] = 'WC_Gateway_Alipay';
   return $methods;
 }
+
+add_action( 'woocommerce_thankyou_alipay', 'woocommerce_alipay_thank_you' );
+
+function woocommerce_alipay_thank_you( $order_id ) {
+  $vars = $_GET;
+  unset( $vars['key'] );
+
+  WC_Gateway_Alipay::log( $vars, 'info', true );
+}
