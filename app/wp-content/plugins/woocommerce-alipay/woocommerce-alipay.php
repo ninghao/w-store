@@ -34,5 +34,28 @@ function woocommerce_alipay_thank_you( $order_id ) {
   $vars = $_GET;
   unset( $vars['key'] );
 
+  $order = wc_get_order( $order_id );
+  $gateway = wc_get_payment_gateway_by_order( $order );
+
+  $sign_verified = woocommerce_alipay_verify_sign( $vars, $gateway );
+
   WC_Gateway_Alipay::log( $vars, 'info', true );
+}
+
+function woocommerce_alipay_verify_sign( $data, $gateway ) {
+  $gateway->log( '--- 验证支付宝返回的数据 ---' );
+
+  $alipay_public_key = $gateway->alipay_public_key;
+  $sign_type = 'RSA2';
+
+  $gateway->aop_client->alipayrsaPublicKey = $alipay_public_key;
+  $sign_verified = $gateway->aop_client->rsaCheckV1( $data, $alipay_public_key, $sign_type );
+
+  if ( $sign_verified ) {
+    $gateway->log( '数据验证成功' );
+  } else {
+    $gateway->log( '数据验证失败', 'error' );
+  }
+
+  return $sign_verified;
 }
