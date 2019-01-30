@@ -64,3 +64,16 @@ function woocommerce_alipay_verify_sign( $data, $gateway ) {
 
   return $sign_verified;
 }
+
+add_action( 'rest_api_init', 'woocommerce_alipay_rest_api' );
+
+function woocommerce_alipay_rest_api() {
+  register_rest_route( 'alipay/v1', '/notify', array(
+    'methods' => 'POST',
+    'callback' => 'woocommerce_alipay_notify',
+  ) );
+}
+
+function woocommerce_alipay_notify( $request ) {
+  return 'success';
+}
