@@ -29,6 +29,8 @@ class WC_Gateway_Wxpay extends WC_Payment_Gateway {
     $this->sandbox            = $this->get_option( 'sandbox', 'no' ) === 'yes';
 
     self::$log_enabled        = $this->debug;
+
+    add_filter( 'woocommerce_thankyou_order_received_text', array( $this, 'native_pay' ), 10, 2 );
   }
 
   public function init_form_fields() {
@@ -58,5 +60,18 @@ class WC_Gateway_Wxpay extends WC_Payment_Gateway {
       'result'       => 'success',
       'redirect'     => $redirect_url
     );
+  }
+
+  public function native_pay( $text, $order ) {
+    if ( ( $order->get_status() !== 'pending' ) && ( $order->get_payment_method() !== $this->id ) ) {
+      return $text;
+    }
+
+    ?>
+    <div class="woocommerce-message">
+      打开微信客户端，扫描上面二维码完成支付。完成以后，按下面的按钮确认已完成支付。
+    </div>
+    <button class="button alt" onClick="window.location.reload()">查询支付结果</button>
+    <?php
   }
 }
