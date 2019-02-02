@@ -41,7 +41,7 @@ function woocommerce_alipay_thank_you( $order_id ) {
 
   WC_Gateway_Alipay::log( $vars, 'info', true );
 
-  if ( $sign_verified && ( $order->get_status() === 'on-hold' ) ) {
+  if ( $sign_verified && ( $order->get_status() === 'pending' ) ) {
     $order->update_status( 'processing', '支付宝交易号：' . $vars['trade_no'] );
     update_post_meta( $order_id, 'trade_no', $vars['trade_no'] );
   }
@@ -100,7 +100,7 @@ function woocommerce_alipay_notify( $request ) {
   $sign_verified = woocommerce_alipay_verify_sign( $body, $gateway );
 
   if ( $sign_verified ) {
-    if ( ( $trade_status === 'TRADE_SUCCESS' ) && ( $order->get_status() === 'on-hold' ) ) {
+    if ( ( $trade_status === 'TRADE_SUCCESS' ) && ( $order->get_status() === 'pending' ) ) {
       $order->update_status( 'processing', '支付宝交易号：' . $trade_no );
       $order->reduce_order_stock();
       update_post_meta( $order->get_id(), 'trade_no', $trade_no );

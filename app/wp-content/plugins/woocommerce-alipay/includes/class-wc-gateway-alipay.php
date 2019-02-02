@@ -66,11 +66,6 @@ class WC_Gateway_Alipay extends WC_Payment_Gateway {
     WC_Gateway_Alipay::log( '使用支付宝支付订单：' . $order_id );
 
     $order = wc_get_order( $order_id );
-    // WC_Gateway_Alipay::log( $order, 'debug', true );
-    WC_Gateway_Alipay::log( $order->status );
-
-    $order->update_status( 'on-hold', '正在使用支付宝支付。' );
-    WC_Gateway_Alipay::log( $order->status );
 
     $alipay_request = new WC_Gateway_Alipay_Request( $this );
     $request_url = $alipay_request->get_request_url( $order );
