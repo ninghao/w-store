@@ -13,3 +13,17 @@ if( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'WC_WXPAY', plugin_dir_path( __FILE__ ) );
+
+add_action( 'plugins_loaded', 'woocommerce_wxpay_init' );
+
+function woocommerce_wxpay_init() {
+  require_once WC_WXPAY . 'includes/class-wc-gateway-wxpay.php';
+}
+
+add_filter( 'woocommerce_payment_gateways', 'woocommerce_wxpay_gateway_class' );
+
+function woocommerce_wxpay_gateway_class( $methods ) {
+  $methods[] = 'WC_Gateway_Wxpay';
+
+  return $methods;
+}
