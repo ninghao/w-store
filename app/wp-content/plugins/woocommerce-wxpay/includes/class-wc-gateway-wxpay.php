@@ -4,7 +4,7 @@ if( ! defined( 'ABSPATH' ) ) {
   exit;
 }
 
-class WC_Gateway_Wxpay extends WC_payment_Gateway {
+class WC_Gateway_Wxpay extends WC_Payment_Gateway {
   public static $log_enabled;
   public static $log;
 
@@ -47,5 +47,16 @@ class WC_Gateway_Wxpay extends WC_payment_Gateway {
 
       self::$log->log( $level, $message, array( 'source' => 'wxpay' ) );
     }
+  }
+
+  public function process_payment( $order_id ) {
+    $order = wc_get_order( $order_id );
+
+    $redirect_url = $this->get_return_url( $order );
+
+    return array(
+      'result'       => 'success',
+      'redirect'     => $redirect_url
+    );
   }
 }
