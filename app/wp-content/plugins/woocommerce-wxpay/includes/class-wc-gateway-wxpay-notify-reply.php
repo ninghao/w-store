@@ -39,7 +39,25 @@ class WC_Gateway_Wxpay_Notify_Reply extends WxPayNotify {
     } catch ( Exception $error ) {
       $this->gateway->log( $error, 'error', true );
     }
+
+    $this->update_order( $data );
     
     return true;
+  }
+
+  public function update_order( $data ) {
+    global $woocommerce;
+
+    $order = $this->order;
+    $order_status = $order->get_status();
+    $transaction_id = $data['transaction_id'];
+
+    if ( $order_status === 'pending' ) {
+      $order->update_status( 'processing', '微信交易号：' . $transaction_id );
+      $order->reduce_order_stock();
+      $woocommerce->cart->empty_cart();
+
+      update_post_meta( $order->get_id(), 'wx_transaction_id', $transaction_id );
+    }
   }
 }

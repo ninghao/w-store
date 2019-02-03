@@ -93,7 +93,7 @@ class WC_Gateway_Wxpay extends WC_Payment_Gateway {
   }
 
   public function native_pay( $text, $order ) {
-    if ( ( $order->get_status() !== 'pending' ) && ( $order->get_payment_method() !== $this->id ) ) {
+    if ( ( $order->get_status() !== 'pending' ) || ( $order->get_payment_method() !== $this->id ) ) {
       return $text;
     }
 
