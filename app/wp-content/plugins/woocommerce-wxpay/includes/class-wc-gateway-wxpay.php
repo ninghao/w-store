@@ -33,6 +33,7 @@ class WC_Gateway_Wxpay extends WC_Payment_Gateway {
     add_filter( 'woocommerce_thankyou_order_received_text', array( $this, 'native_pay' ), 10, 2 );
 
     include_once WC_WXPAY . 'includes/class-wc-gateway-wxpay-config.php';
+    include_once WC_WXPAY . 'includes/wxpay-sdk/lib/WxPay.Api.php';
 
     $options = array(
       'app_id'                => $this->get_option( 'app_id' ),
@@ -73,10 +74,32 @@ class WC_Gateway_Wxpay extends WC_Payment_Gateway {
     );
   }
 
+  public function pre_pay( $order, $trade_type ) {
+    $out_trade_no = $this->sandbox ? 'sandbox' . $order->get_id() : $order->get_id();
+    $body = get_bloginfo( 'name' ) . ': # ' . $out_trade_no;
+    $total_fee = $this->sandbox ? '1' : $order->get_total() * 100;
+    $notify_url = 'https://w-store.ninghao.net';
+
+    $input = new WxPayUnifiedOrder();
+    $input->SetTrade_type( $trade_type );
+    $input->SetBody( $body );
+    $input->SetAttach( $body );
+    $input->SetOut_trade_no( $out_trade_no );
+    $input->SetTotal_fee( $total_fee );
+    $input->SetNotify_url( $notify_url );
+    $input->SetProduct_id( $out_trade_no );
+
+    return $input;
+  }
+
   public function native_pay( $text, $order ) {
     if ( ( $order->get_status() !== 'pending' ) && ( $order->get_payment_method() !== $this->id ) ) {
       return $text;
     }
+
+    $input = $this->pre_pay( $order, 'NATIVE' );
+
+    WC_Gateway_Wxpay::log( $input, 'debug', true );
 
     ?>
     <div class="woocommerce-message">
