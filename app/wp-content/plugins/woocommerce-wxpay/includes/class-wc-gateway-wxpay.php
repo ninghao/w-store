@@ -78,7 +78,7 @@ class WC_Gateway_Wxpay extends WC_Payment_Gateway {
     $out_trade_no = $this->sandbox ? 'sandbox' . $order->get_id() : $order->get_id();
     $body = get_bloginfo( 'name' ) . ': # ' . $out_trade_no;
     $total_fee = $this->sandbox ? '1' : $order->get_total() * 100;
-    $notify_url = 'https://w-store.ninghao.net';
+    $notify_url = rest_url( 'wxpay/v1/notify' );
 
     $input = new WxPayUnifiedOrder();
     $input->SetTrade_type( $trade_type );

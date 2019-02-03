@@ -18,6 +18,9 @@ add_action( 'plugins_loaded', 'woocommerce_wxpay_init' );
 
 function woocommerce_wxpay_init() {
   require_once WC_WXPAY . 'includes/class-wc-gateway-wxpay.php';
+  require_once WC_WXPAY . 'includes/class-wc-gateway-wxpay-notify.php';
+
+  new WC_Gateway_Wxpay_Notify();
 }
 
 add_filter( 'woocommerce_payment_gateways', 'woocommerce_wxpay_gateway_class' );
