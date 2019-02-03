@@ -17,6 +17,18 @@ Class WC_Gateway_Wxpay_Notify {
   }
 
   public function notify_handler( $request ) {
-    return '收到微信支付结果通知';
+    require_once WC_WXPAY . 'includes/wxpay-sdk/lib/WxPay.Data.php';
+
+    $body_raw = $request->get_body();
+    $wxpay_data = new WxPayDataBase();
+    $body = $wxpay_data->FromXml( $body_raw );
+
+    $out_trade_no = str_replace( 'sandbox', '', $body['out_trade_no'] );
+    $order = wc_get_order( $out_trade_no );
+    $gateway = wc_get_payment_gateway_by_order( $order );
+    $config = $gateway->config;
+
+    $gateway->log( '微信支付结果' );
+    $gateway->log( $body, 'debug', true );
   }
 }
