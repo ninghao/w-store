@@ -37,8 +37,8 @@ class WC_Gateway_Wxpay extends WC_Payment_Gateway {
     $options = array(
       'app_id'                => $this->get_option( 'app_id' ),
       'merchant_id'           => $this->get_option( 'merchant_id' ),
-      'merchant_public_key'   => $this->get_option( 'merchant_public_key' ),
-      'merchant_private_key'  => $this->get_option( 'merchant_private_key' ),
+      'merchant_key'          => $this->get_option( 'merchant_key' ),
+      'app_secret'            => $this->get_option( 'app_secret' ),
     );
 
     $this->config = new WC_Gateway_Wxpay_Config( $options );

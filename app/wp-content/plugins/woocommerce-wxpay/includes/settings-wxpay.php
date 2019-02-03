@@ -56,15 +56,15 @@ return array(
 		'default'     => '',
 		'placeholder' => '1428508902',
 	),
-	'merchant_public_key' => array(
-		'title'       => '应用公钥',
+	'merchant_key' => array(
+		'title'       => '商户密钥',
 		'type'        => 'text',
 		'desc_tip'    => true,
-		'description' => '微信支付应用的公钥。',
+		'description' => '微信支付商户密钥。',
 		'default'     => '',
 		'placeholder' => '3fa1815e48...',
 	),
-	'merchant_private_key' => array(
+	'app_secret' => array(
 		'title'       => '应用密钥',
 		'type'        => 'text',
 		'desc_tip'    => true,

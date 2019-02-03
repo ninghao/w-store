@@ -37,11 +37,11 @@ class WC_Gateway_Wxpay_Config extends WxPayConfigInterface {
   }
 
   public function GetKey() {
-    return $this->options['merchant_public_key'];
+    return $this->options['merchant_key'];
   }
 
   public function GetAppSecret() {
-    return $this->options['merchant_private_key'];
+    return $this->options['app_secret'];
   }
 
   public function GetSSLCertPath( &$sslCertPath, &$sslKeyPath ) {
