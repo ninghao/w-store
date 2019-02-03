@@ -105,8 +105,14 @@ class WC_Gateway_Wxpay extends WC_Payment_Gateway {
 
     WC_Gateway_Wxpay::log( $result, 'debug', true );
 
+    $code_url = $result['code_url'];
+    
+    $qrcode_image_url = plugins_url( 'qrcode.php?data=' . urlencode( $code_url ), __FILE__ );
+
     ?>
     <div class="woocommerce-message">
+      <img src="<?php echo $qrcode_image_url; ?>">
+      <br>
       打开微信客户端，扫描上面二维码完成支付。完成以后，按下面的按钮确认已完成支付。
     </div>
     <button class="button alt" onClick="window.location.reload()">查询支付结果</button>
