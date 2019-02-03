@@ -16,6 +16,30 @@ class WC_Gateway_Wxpay_Notify_Reply extends WxPayNotify {
   }
 
   public function NotifyProcess( $notify_result, $config, &$message ) {
-    return false;
+    $data = $notify_result->GetValues();
+    $return_code = $data['return_code'];
+    $transaction_id = $data['transaction_id'];
+
+    if ( ! $return_code || $return_code !== 'SUCCESS' ) {
+      $message = '支付不成功';
+      return false;
+    }
+
+    if ( ! $transaction_id ) {
+      $message = '缺少交易号';
+      return false;
+    }
+
+    try {
+      $sign_verified = $notify_result->CheckSign( $this->config );
+
+      if ( ! $sign_verified ) {
+        return false;
+      }
+    } catch ( Exception $error ) {
+      $this->gateway->log( $error, 'error', true );
+    }
+    
+    return true;
   }
 }
