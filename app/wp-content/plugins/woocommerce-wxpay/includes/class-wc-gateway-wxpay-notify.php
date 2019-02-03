@@ -33,6 +33,7 @@ class WC_Gateway_Wxpay_Notify {
 
     $gateway->log( '微信支付结果' );
     $gateway->log( $body, 'debug', true );
+    $gateway->log( $body_raw, 'debug', true );
 
     $notify = new WC_Gateway_Wxpay_Notify_Reply( $order, $gateway );
     $notify->Handle( $config, false );

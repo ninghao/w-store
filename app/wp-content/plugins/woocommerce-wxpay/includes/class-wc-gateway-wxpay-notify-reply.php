@@ -14,4 +14,8 @@ class WC_Gateway_Wxpay_Notify_Reply extends WxPayNotify {
     $this->gateway = $gateway;
     $this->config = $gateway->config;
   }
+
+  public function NotifyProcess( $notify_result, $config, &$message ) {
+    return false;
+  }
 }
