@@ -101,6 +101,10 @@ class WC_Gateway_Wxpay extends WC_Payment_Gateway {
 
     WC_Gateway_Wxpay::log( $input, 'debug', true );
 
+    $result = WxPayApi::unifiedOrder( $this->config, $input );
+
+    WC_Gateway_Wxpay::log( $result, 'debug', true );
+
     ?>
     <div class="woocommerce-message">
       打开微信客户端，扫描上面二维码完成支付。完成以后，按下面的按钮确认已完成支付。
