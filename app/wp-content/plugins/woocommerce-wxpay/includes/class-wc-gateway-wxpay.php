@@ -66,7 +66,16 @@ class WC_Gateway_Wxpay extends WC_Payment_Gateway {
   public function process_payment( $order_id ) {
     $order = wc_get_order( $order_id );
 
-    $redirect_url = $this->get_return_url( $order );
+    $trade_type = $this->get_trade_type();
+
+    switch ( $trade_type ) {
+      case 'NATIVE':
+        $redirect_url = $this->get_return_url( $order );
+        break;
+      case 'MWEB':
+        $redirect_url = $this->mobile_web_pay( $order );
+        break;
+    }
 
     return array(
       'result'       => 'success',
@@ -117,5 +126,25 @@ class WC_Gateway_Wxpay extends WC_Payment_Gateway {
     </div>
     <button class="button alt" onClick="window.location.reload()">查询支付结果</button>
     <?php
+  }
+
+  public function mobile_web_pay( $order ) {
+    $input = $this->pre_pay( $order, 'MWEB' );
+    $result = WxPayApi::unifiedOrder( $this->config, $input );
+    $mweb_url = $result['mweb_url'];
+    $return_url = $this->get_return_url( $order );
+    $mweb_with_redirect = $mweb_url . '&redirect_url=' . urlencode( $return_url );
+    
+    return $mweb_with_redirect;
+  }
+
+  public function get_trade_type() {
+    $is_mobile = wp_is_mobile();
+
+    if ( $is_mobile ) {
+      return 'MWEB';
+    }
+
+    return 'NATIVE';
   }
 }
