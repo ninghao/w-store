@@ -4,7 +4,7 @@ if( ! defined( 'ABSPATH' ) ) {
   exit;
 }
 
-Class WC_Gateway_Wxpay_Notify {
+class WC_Gateway_Wxpay_Notify {
   public function __construct() {
     add_action( 'rest_api_init', array( $this, 'rest_api_init' ) );
   }
@@ -17,7 +17,10 @@ Class WC_Gateway_Wxpay_Notify {
   }
 
   public function notify_handler( $request ) {
+    header( 'Content-Type: application/xml' );
+    
     require_once WC_WXPAY . 'includes/wxpay-sdk/lib/WxPay.Data.php';
+    require_once WC_WXPAY . 'includes/class-wc-gateway-wxpay-notify-reply.php';
 
     $body_raw = $request->get_body();
     $wxpay_data = new WxPayDataBase();
@@ -30,5 +33,10 @@ Class WC_Gateway_Wxpay_Notify {
 
     $gateway->log( '微信支付结果' );
     $gateway->log( $body, 'debug', true );
+
+    $notify = new WC_Gateway_Wxpay_Notify_Reply( $order, $gateway );
+    $notify->Handle( $config, false );
+
+    exit;
   }
 }
