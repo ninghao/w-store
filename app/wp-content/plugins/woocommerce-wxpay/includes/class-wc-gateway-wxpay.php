@@ -88,6 +88,7 @@ class WC_Gateway_Wxpay extends WC_Payment_Gateway {
     $body = get_bloginfo( 'name' ) . ': # ' . $out_trade_no;
     $total_fee = $this->sandbox ? '1' : $order->get_total() * 100;
     $notify_url = rest_url( 'wxpay/v1/notify' );
+    $spbill_create_ip = $order->get_customer_ip_address();
 
     $input = new WxPayUnifiedOrder();
     $input->SetTrade_type( $trade_type );
@@ -97,6 +98,7 @@ class WC_Gateway_Wxpay extends WC_Payment_Gateway {
     $input->SetTotal_fee( $total_fee );
     $input->SetNotify_url( $notify_url );
     $input->SetProduct_id( $out_trade_no );
+    $input->SetSpbill_create_ip( $spbill_create_ip );
 
     return $input;
   }
