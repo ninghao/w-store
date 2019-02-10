@@ -13,6 +13,7 @@ services:
     volumes:
       - ./app/wp-content:/var/www/html/wp-content/
       - ./config/php/conf.d/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ./config/.htaccess:/var/www/html/.htaccess
   db:
     image: mysql:5.7
     restart: always
