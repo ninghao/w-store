@@ -15,3 +15,4 @@ if( ! defined( 'ABSPATH' ) ) {
 define( 'WS', plugin_dir_path( __FILE__ ) );
 
 require_once WS . 'includes/jwt-config.php';
+require_once WS . 'includes/settings.php';

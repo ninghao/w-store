@@ -4,5 +4,7 @@ if( ! defined( 'ABSPATH' ) ) {
   exit;
 }
 
-define( 'JWT_AUTH_SECRET_KEY', '2M+L06XXii1/tDMtrUuo8Irnq8bKshhg33wyA8RiSvV/4fYoH6hpTnU826mctcF5' );
+$options = get_option( 'w_store_settings' );
+
+define( 'JWT_AUTH_SECRET_KEY', $options['jwt_auth_secret_key'] );
 define( 'JWT_AUTH_CORS_ENABLE', true );
